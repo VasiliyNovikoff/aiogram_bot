@@ -1,13 +1,17 @@
-print('This is a file from GitHub repository')
-
-print('set-url ssh')
+from dataclasses import dataclass
 
 
-def plus_two(num: int) -> int:
-    print('start function plus_two')
-    return num + 2
+@dataclass
+class Mek:
+    age: int
+    name: str
+    breed: str
 
 
-print(
-    plus_two(3)
+Lesya = Mek(
+    age=5,
+    name='Lesya',
+    breed='Domestic'
 )
+
+print(Lesya.name)
