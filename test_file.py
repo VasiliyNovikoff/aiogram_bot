@@ -1,3 +1,4 @@
 import sys
+from pprint import pprint
 
-print(sys.path)
+pprint(sys.path)
