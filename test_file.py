@@ -1,4 +1,8 @@
-import sys
-from pprint import pprint
+import os
+import dotenv
 
-pprint(sys.path)
+
+dotenv.load_dotenv()
+
+print(os.getenv('BOT_TOKEN'))
+print(os.getenv('ADMIN_ID'))
