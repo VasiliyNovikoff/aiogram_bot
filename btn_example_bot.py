@@ -80,26 +80,15 @@ kb_builder_2.adjust(1, 3, repeat=True)
 # Создаём объект клавиатуры
 placeholder_example_kb: ReplyKeyboardMarkup = kb_builder_2.as_markup(
                                                 resize_keyboard=True,
-                                                input_field_placeholder='Текст, который будет в поле ввода')
+                                                input_field_placeholder='Твой текст?')
 
 
-# Этот хэндлер будет срабатывать на команду "/placeholder" - надписи нет
+# Этот хэндлер будет срабатывать на команду "/placeholder"
 @dp.message(Command(commands=['placeholder']))
 async def process_placeholder_command(message: Message):
     await message.answer(text='Экспериментируем с полем placeholder',
                          reply_markup=placeholder_example_kb)
 
-
-ph_kb: ReplyKeyboardMarkup = ReplyKeyboardMarkup(keyboard=[buttons[:2], buttons[2:]],
-                                                 resize_keyboard=True,
-                                                 input_field_placeholder='Текст, который будет в поле ввода')
-
-
-# Этот хэндлер будет срабатывать на команду "/ph"
-@dp.message(Command(commands=['ph']))
-async def process_placeholder_command(message: Message):
-    await message.answer(text='Экспериментируем с полем placeholder',
-                         reply_markup=ph_kb)
 
 ###############
 
