@@ -15,10 +15,17 @@ dp: Dispatcher = Dispatcher()
 kb_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
 
 # Создаём список с кнопками
-buttons: list[KeyboardButton] = [KeyboardButton(text=f'Кнопка {i}') for i in range(1, 10)]
+buttons_1: list[KeyboardButton] = [KeyboardButton(text=f'Кнопка {i}') for i in range(1, 11)]
 
-# Методами билдера добавляем в него кнопки
-kb_builder.row(*buttons, width=1)
+# Методами билдера добавляем в него кнопки (метод .row())
+# kb_builder.row(*buttons_1, width=4)
+
+# Распаковываем список кнопок методом add
+kb_builder.add(*buttons_1)
+
+# Сообщаем билдеру, сколько хотим видеть кнопок в первом и втором ряду
+kb_builder.adjust(2, 1, repeat=True)
+
 # Методом as_markup() передаем клавиатуру, где она требуется
 
 
