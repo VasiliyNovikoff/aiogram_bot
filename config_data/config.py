@@ -23,7 +23,7 @@ class Config:
 
 
 # Создаём экземпляр класса Config и наполняем его данными из переменных окружения
-def load_config(path: str | None) -> Config:
+def load_config(path: str | None = None) -> Config:
     # Создаём экземпляр класса Env
     env: Env = Env()
 

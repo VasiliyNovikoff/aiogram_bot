@@ -1,3 +1,9 @@
+"""
+Пример реализация кнопок бота 3мя разными способами.
+Бот отвечает на команды /btn, /start, /placeholder
+"""
+
+
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, KeyboardButtonPollType, Message
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from aiogram import Bot, Dispatcher

@@ -1,2 +1,6 @@
-venv/
 .env
+
+../mypy_cashe/
+venv/
+.vscode/
+__pycache__/
