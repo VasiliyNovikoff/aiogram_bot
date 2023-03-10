@@ -38,7 +38,7 @@ quiz_btn: KeyboardButton = KeyboardButton(text='Создать викторин�
 # Добавляем кнопки в билдер методом row
 kb_builder.row(contact_btn, geo_btn, poll_btn, quiz_btn, width=1)
 
-# Создаём объект клавиатуры (контакт, гео, опсрос, виктрорина)
+# Создаём объект клавиатуры (контакт, гео, опрос, виктрорина)
 keyboard: ReplyKeyboardMarkup = kb_builder.as_markup(resize_keyboard=True,
                                                      one_time_keyboard=True)
 

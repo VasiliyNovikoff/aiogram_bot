@@ -1,5 +1,5 @@
 LEXICON_COMMANDS_RU: dict[str, str] = {
-                '/start': 'command_1 desription',
-                '/command_2': 'command_2 desription',
-                '/command_3': 'command_3 desription',
+                '/start': 'Запуск!',
+                '/delmenu': 'Удалить меню',
+                '/menu': 'Вернуть Меню',
                 '/command_4': 'command_4 desription'}

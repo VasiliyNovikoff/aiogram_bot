@@ -34,10 +34,28 @@ async def process_start_command(message: Message):
         reply_markup=keyboard_cb)
 
 
-@dp.callback_query(Text(text='cb_btn_1_pressed'))
+# Этот хэндлер будет обрабатывать апдейдейт типа CallbackQuery
+# c data cb_btn_1_pressed
+@dp.callback_query(Text(text=['cb_btn_1_pressed']))
 async def process_cb_btn_1_press(callback: CallbackQuery):
-    print(callback.json(indent=4))
-    await callback.answer()
+    if callback.message.text != 'Вы нажали 1 кнопку!':
+        await callback.message.edit_text(text='Вы нажали 1 кнопку!',
+                                         reply_markup=callback.message.reply_markup)
+    await callback.answer(text='Ура! Кнопка 1 нажата!',
+                          show_alert=True)
+
+
+# Этот хэндлер будет обрабатывать апдейдейт типа CallbackQuery
+# c data cb_btn_2_pressed
+@dp.callback_query(Text(text=['cb_btn_2_pressed']))
+async def process_cb_btn_2_press(callback: CallbackQuery):
+    if callback.message.text != 'Вы нажали 2 кнопку!':
+        await callback.message.edit_text(text='Вы нажали 2 кнопку!',
+                                         reply_markup=callback.message.reply_markup)
+    await callback.answer(text='Ура! Кнопка 2 нажата!')
+
+
+dp.include_router(user_handlers.router)
 
 
 if __name__ == '__main__':

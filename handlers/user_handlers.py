@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
-from aiogram.filters import Command
+from aiogram.filters import Command, CommandStart
 from aiogram import Router
 from keyboards.set_menu import set_main_menu
 
@@ -16,7 +16,7 @@ async def del_main_menu(message: Message, bot: Bot):
     await message.answer('Кнопка "Menu" удалена. Перезапустите приложение')
 
 
-@router.message(Command(commands='start'))
+@router.message(CommandStart())
 async def process_start_command(message: Message):
     await message.answer('Hello!')
 
