@@ -1,6 +1,9 @@
 .env
+test_file.py
 
 ../mypy_cashe/
 venv/
 .vscode/
 __pycache__/
+.idea/
+.DS_Store

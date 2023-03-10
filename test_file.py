@@ -1,12 +1,8 @@
-# n - всего солдат
-# каждый m-й солдат на убивание
-def last(n, m):
-    if n == 1:
-        return n
-    else:
-        return 1 + (last(n - 1, m) + m - 1) % n
+numbers = [int(num) for num in input().split()]
 
-
-n = int(input())
-m = int(input())
-print(last(n, m))
+if len(numbers) == 1:
+    pass
+else:
+    for i in range(1, len(numbers), 2):
+        numbers[i - 1], numbers[i] = numbers[i], numbers[i - 1]
+print(*numbers)
