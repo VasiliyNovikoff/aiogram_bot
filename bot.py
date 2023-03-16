@@ -4,7 +4,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, C
 
 from config_data.config import Config, load_config
 from handlers import user_handlers
-
+from keyboards.create_inline_kb import create_inline_kb
+from lexicon.lexicon_ru import BUTTONS
 
 config: Config = load_config()
 
@@ -12,7 +13,6 @@ config: Config = load_config()
 bot: Bot = Bot(token=config.tg_bot.token,
                parse_mode='HTML')
 dp: Dispatcher = Dispatcher()
-
 
 btn_callback_1: InlineKeyboardButton = InlineKeyboardButton(
     text='Коллбэк кнопка 1',
@@ -25,10 +25,28 @@ btn_callback_2: InlineKeyboardButton = InlineKeyboardButton(
 keyboard_cb: InlineKeyboardMarkup = InlineKeyboardMarkup(
     inline_keyboard=[[btn_callback_1], [btn_callback_2]])
 
+# Создаем инлайн-клавиатуру "на лету"
+keyboard_inline = create_inline_kb(2, 'but_1', 'but_3', 'but_7')
+keyboard_inline_2 = create_inline_kb(3, last_btn='Пока!', **BUTTONS)
+# С именованными аргументами
+keyboard_inline_3 = create_inline_kb(1, btn_email='Email',
+                                        btn_tel='Телефон',
+                                        btn_website='Web-сайт',
+                                        btn_vk='VK',
+                                        btn_tgbot='Наш телеграм-бот')
 
-# Этот хэндлер будет обрабатывать команду /start
+
+# Этот хэндлер будет обрабатывать команду /inline
 @dp.message(CommandStart())
 async def process_start_command(message: Message):
+    await message.answer(
+        text='Это инлайн-кнопки "на лету"!',
+        reply_markup=keyboard_inline_3)
+
+
+# Этот хэндлер будет обрабатывать команду /inline
+@dp.message(Text(text='inline'))
+async def process_inline_command(message: Message):
     await message.answer(
         text='Это инлайн-кнопки',
         reply_markup=keyboard_cb)
@@ -56,7 +74,6 @@ async def process_cb_btn_2_press(callback: CallbackQuery):
 
 
 dp.include_router(user_handlers.router)
-
 
 if __name__ == '__main__':
     dp.run_polling(bot)
