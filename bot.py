@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Text, Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, \
     Message, CallbackQuery, BotCommand, InputMediaVideo, InputMediaAudio, \
-    InputMediaPhoto, InputMediaDocument
+    InputMediaPhoto, InputMediaDocument, InputMedia
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton
 import random
 from aiogram.exceptions import TelegramBadRequest
@@ -26,6 +26,7 @@ file_dict: dict = {
     'text': '📃 Текст',
     'photo': '🖼 Фото',
     'video_note': '🎬 Видео',
+    'video': '🎬 Видео',
     'document': '📑 Документ',
     'voice': '📢 Голосовое сообщение',
     'text_1': 'Это обыкновенное текстовое сообщение, его можно легко отредактировать другим '
@@ -41,7 +42,11 @@ file_dict: dict = {
     'document_id': ['BQACAgIAAxkBAAIDp2QV3hODjpw8gWEdYM1RsFjVgIO6AAJZLgACtKWxSFQzXyRMEpqwLwQ',
                  'BQACAgIAAxkBAAIDqGQV3j-QInTv5gdxvmJVFnXw1LAkAAJbLgACtKWxSBxxsSmjnGXeLwQ'],
     'audio_id': ['CQACAgIAAxkBAAIDqWQV3oXq0SNooBPY-Sm1ledmYzE8AAJcLgACtKWxSHGeEHCCxhvhLwQ',
-                 'CQACAgIAAxkBAAIDqmQV3q-aa2MSpeXySZwmbfV-1pP6AAJfLgACtKWxSISaPzU5aLMwLwQ']}
+                 'CQACAgIAAxkBAAIDqmQV3q-aa2MSpeXySZwmbfV-1pP6AAJfLgACtKWxSISaPzU5aLMwLwQ'],
+    'video_id': ['BAACAgIAAxkBAAID1mQYjjyXU97Ih9RkjSOgxHhkxpGnAAJ-LwAC4YfJSGHilVAFakNJLwQ',
+                 'BAACAgIAAxkBAAID2GQYj-_ET8XoGZfuzk4lbks2-akJAAKULwAC4YfJSKsFmby7fGZTLwQ'],
+    'video_unique_id': ['AgADfi8AAuGHyUg',
+                        'AgADlC8AAuGHyUg']}
 
 
 # Функция для генерации клавиатуры с инлайн-кнопками
@@ -82,22 +87,21 @@ async def process_start_command(message: Message):
                               'photo',
                               'video_note',
                               'voice',
-                              'document']))
+                              'document',
+                              'video']))
 async def process_button_press(callback: CallbackQuery, bot: Bot):
-    markup = get_markup(2, 'photo')
+    markup = get_markup(2, 'photo', 'audio')
     try:
         await bot.edit_message_media(chat_id=callback.message.chat.id,
                                      message_id=callback.message.message_id,
-                                     media=InputMediaPhoto(
-                                         media=file_dict['photo_id'][0],
-                                         caption='Это фото 1'),
+                                     media=InputMediaAudio(caption='Это аудио 1',
+                                                           media=file_dict['audio_id'][0]),
                                      reply_markup=markup)
     except TelegramBadRequest:
         await bot.edit_message_media(chat_id=callback.message.chat.id,
                                      message_id=callback.message.message_id,
-                                     media=InputMediaPhoto(
-                                         media=file_dict['photo_id'][1],
-                                         caption='Это фото 2'),
+                                     media=InputMediaAudio(media=file_dict['audio_id'][1],
+                                                           caption='Это аудио 2'),
                                      reply_markup=markup)
 
 
@@ -105,6 +109,7 @@ async def process_button_press(callback: CallbackQuery, bot: Bot):
 @dp.message()
 async def send_echo(message: Message):
     await message.answer(text='Не понимаю :(')
+    print(message.json(indent=4, exclude_none=True))
 
 
 if __name__ == '__main__':
