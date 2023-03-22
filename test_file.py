@@ -1,9 +1,9 @@
-list1 = [[1, 7, 8], [9, 7, 102], [102, 106, 105], [100, 99, 98, 103], [1, 2, 3]]
-total = 0
-counter = 0
+from math import factorial
 
-for li in list1:
-    counter += len(li)
-    total += sum(li)
+n = int(input())
+result = []
 
-print(total/counter)
+for i in range(n + 1):
+    result.append(factorial(n) // (factorial(i) * factorial(n - i)))
+
+print(result)

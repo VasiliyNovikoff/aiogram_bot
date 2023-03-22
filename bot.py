@@ -108,7 +108,7 @@ async def process_button_press(callback: CallbackQuery, bot: Bot):
 # Этот хэндлер будет срабатывать на все остальные сообщения
 @dp.message()
 async def send_echo(message: Message):
-    await message.answer(text='Не понимаю :(')
+    await message.answer(text='Сори, не понимаю :(')
     print(message.json(indent=4, exclude_none=True))
 
 
