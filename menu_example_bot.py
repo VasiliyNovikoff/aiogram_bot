@@ -1,6 +1,5 @@
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+import asyncio
 
 from config_data.config import Config, load_config
 from keyboards.set_menu import set_main_menu
@@ -27,4 +26,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
