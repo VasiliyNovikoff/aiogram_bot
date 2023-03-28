@@ -27,6 +27,7 @@ redis: Redis = Redis(host='localhost')
 # Инициализируем хранилище (создаем экземпляр класса RedisStorage)
 storage: RedisStorage = RedisStorage(redis=redis)
 
+
 # Создаем объекты бота и диспетчера
 bot: Bot = Bot(token=config.tg_bot.token)
 dp: Dispatcher = Dispatcher(storage=storage)
