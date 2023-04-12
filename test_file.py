@@ -1,16 +1,13 @@
-def chunked(s, n):
-    li: list = []
-    for i in range(len(s)):
-        if not li:
-            li.append([s[i]])
-        elif i % n != 0:
-            li[-1].extend([s[i]])
-        else:
-            li.append([s[i]])
-    return li
+def same_parity(numbers: list[int]) -> list:
+    new_list = []
+    for i in range(len(numbers)):
+        if numbers[0] % 2 and numbers[i] % 2:
+            new_list.append(numbers[i])
+        elif numbers[0] % 2 == 0 and numbers[i] % 2 == 0:
+            new_list.append(numbers[i])
+    return new_list
 
 
-s = input().split()
-n = int(input())
+nums: list = [int(i) for i in input().split(',')]
 
-print(chunked(s, n))
+print(same_parity(nums))
