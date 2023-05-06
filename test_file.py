@@ -1,6 +1,9 @@
-from datetime import date
+from datetime import datetime
 
 
-my_date = date.fromisoformat('2222-12-09')
-print(my_date)
-print(type(my_date))
+dates = [datetime.strptime(i, '%d.%m.%Y') for i in input().split(' ')]
+days = []
+for i in range(1, len(dates)):
+    day = abs(dates[i] - dates[i - 1])
+    days.append(day.days)
+print(days)
