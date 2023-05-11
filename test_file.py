@@ -1,29 +1,20 @@
-from time import perf_counter, monotonic
+from datetime import date
+import calendar
 
 
-def calculate_it(func, *args):
-    start = perf_counter()
-    result = func(*args)
-    end = perf_counter() - start
-    return end
+def get_all_thursday(year):
+    date_list = []
+    for month in range(1, 13):
+        month_cal = calendar.monthcalendar(year, month)
+        first_thursday = month_cal[0][3]
+        third_thursday = month_cal[2][3] if first_thursday != 0 else month_cal[3][3]
+        date_list.append(date(year, month, third_thursday))
+    return print_date(date_list)
 
 
-def for_and_append(iterable):  # с использованием цикла for и метода append()
-    result = []
-    for elem in iterable:
-        result.append(elem)
-    return result
+def print_date(date_list: list[date]):
+    for dt in date_list:
+        print(dt.strftime('%d.%m.%Y'))
 
 
-def list_comprehension(iterable):  # с использованием списочного выражения
-    return [elem for elem in iterable]
-
-
-def list_function(iterable):  # с использованием встроенной функции list()
-    return list(iterable)
-
-
-my_iter = range(100_000)
-print(calculate_it(for_and_append, my_iter))
-print(calculate_it(list_comprehension, my_iter))
-print(calculate_it(list_function, my_iter))
+get_all_thursday(int(input()))
