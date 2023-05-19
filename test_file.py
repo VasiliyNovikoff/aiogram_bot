@@ -1,6 +1,6 @@
-import sys
+import csv
 
-
-socks_counts = list(map(str.strip, sys.stdin))
-players = ['Дима', 'Анри']
-print(players[(len(socks_counts) + int(socks_counts[-1])) % 2])
+with open('products.csv', encoding='utf-8') as file:
+    rows = csv.DictReader(file, delimiter=';', quotechar='"')
+    for row in rows:
+        print(row)
