@@ -1,21 +1,13 @@
 import csv
-from datetime import datetime
 
 
-with open('/Users/vasiliy/Downloads/name_log.csv', encoding='utf-8') as file:
-    reader = list(csv.DictReader(file))
+with open('/Users/vasiliy/Downloads/prices.csv', encoding='utf-8') as file:
+    reader = list(csv.DictReader(file, delimiter=';'))
 
-pattern = '%d/%m/%Y %H:%M'
-reader.sort(key=lambda item: (item['email'], -datetime.strptime(item['dtime'], pattern).timestamp()))
+cheap_list = []
+for shop in reader:
+    shop, *products = shop.items()
+    cheap_list.append([shop, min(products, key=lambda stuff: (int(stuff[1]), stuff[0]))])
 
-new_reader = []
-email_list = []
-for user in reader:
-    if user['email'] not in email_list:
-        new_reader.append(user)
-        email_list.append(user['email'])
-
-with open('new_name_log.csv', 'w', encoding='utf-8', newline='') as file:
-    writer = csv.DictWriter(file, fieldnames=reader[0].keys())
-    writer.writeheader()
-    writer.writerows(new_reader)
+cheap_shop, cheap_product = min(cheap_list, key=lambda cheap: (int(cheap[1][1]), cheap[1][0], cheap[0][1]))
+print(f'{cheap_product[0]}: {cheap_shop[1]}')
