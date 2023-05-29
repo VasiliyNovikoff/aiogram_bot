@@ -1,13 +1,16 @@
-import csv
+import json
 
+specs = {
+         'Модель': 'AMD Ryzen 5 5600G',
+         'Год релиза': 2021,
+         'Сокет': 'AM4',
+         'Техпроцесс': '7 нм',
+         'Ядро': 'Cezanne',
+         'Объем кэша L2': '3 МБ',
+         'Объем кэша L3': '16 МБ',
+         'Базовая частота': '3900 МГц'
+        }
 
-with open('/Users/vasiliy/Downloads/prices.csv', encoding='utf-8') as file:
-    reader = list(csv.DictReader(file, delimiter=';'))
+specs_json = json.dumps(specs, ensure_ascii=False, indent=3)
 
-cheap_list = []
-for shop in reader:
-    shop, *products = shop.items()
-    cheap_list.append([shop, min(products, key=lambda stuff: (int(stuff[1]), stuff[0]))])
-
-cheap_shop, cheap_product = min(cheap_list, key=lambda cheap: (int(cheap[1][1]), cheap[1][0], cheap[0][1]))
-print(f'{cheap_product[0]}: {cheap_shop[1]}')
+print(specs_json)
