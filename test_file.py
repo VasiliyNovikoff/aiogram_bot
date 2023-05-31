@@ -1,16 +1,16 @@
 import json
 
-specs = {
-         'Модель': 'AMD Ryzen 5 5600G',
-         'Год релиза': 2021,
-         'Сокет': 'AM4',
-         'Техпроцесс': '7 нм',
-         'Ядро': 'Cezanne',
-         'Объем кэша L2': '3 МБ',
-         'Объем кэша L3': '16 МБ',
-         'Базовая частота': '3900 МГц'
-        }
 
-specs_json = json.dumps(specs, ensure_ascii=False, indent=3)
+with open('/Users/vasiliy/Downloads/food_services.json', encoding='utf-8') as file:
+    shops = json.load(file)
 
-print(specs_json)
+districts_count = {}
+shops_count = {}
+for shop in shops:
+    districts_count[shop['District']] = districts_count.get(shop['District'], 0) + 1
+    shops_count[shop['OperatingCompany']] = shops_count.get(shop['OperatingCompany'], 0) + 1
+
+del shops_count['']
+
+print(*max(districts_count.items(), key=lambda x: x[1]), sep=': ')
+print(*max(shops_count.items(), key=lambda x: x[1]), sep=': ')
