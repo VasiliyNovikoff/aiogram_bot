@@ -1,3 +1,9 @@
-import shutil
+import string
 
-print(shutil.get_archive_formats())
+alphabet = string.ascii_lowercase
+
+new_alphabet = input()
+string = input().lower()
+
+tbl = string.maketrans(alphabet, new_alphabet)
+print(string.translate(tbl))
